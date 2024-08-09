@@ -1,0 +1,243 @@
+________________________________________________________
+========================================================
+Consulta para Insertar 3 registros en la tabla Clientes:
+
+INSERT INTO `t_cliente`( `apellidos`, `correo`, `direccion`, `dni`, `estado`, `nombres`, `telefono`) VALUES ("Cruz Campos","gcruz06@gmail.com","Residencial Concepcion","1804-1997-01058",1,"Gadi David","8779-4940"),("Vindel Barahona","juanvindel@gmail.com","Colonia Loarque","1504-2000-01458",1,"Juan Carlos","8779-4532"),("Zavala Torres","atorres@gmail.com","El Carrizal","1004-1999-01034",1,"Amado Lenin","9999-0304")
+========================================================
+________________________________________________________
+
+-----------------------------------------------
+API REST para validar la creacion de Clientes:
+-----------------------------------------------
+Metodo: GET
+
+EndPoint: http://localhost:8086/api/clientes/all
+
+Response:
+
+[
+    {
+        "id": 1,
+        "nombres": "Gadi David",
+        "dni": "1804-1997-01058",
+        "estado": 1,
+        "correo": "gcruz06@gmail.com",
+        "apellidos": "Cruz Campos",
+        "direccion": "Residencial Concepcion",
+        "telefono": "8779-4940"
+    }
+]
+
+-------------------------------------------------
+API REST Para Guardar una orden de pago
+-------------------------------------------------
+
+Metodo: POST
+
+EndPoint: http://localhost:8086/api/ordenes/guardar
+
+Resquest:
+
+{
+        "fechaOrden": "2024-08-03",
+        "estado": 1,
+        "cliente": 
+            {
+                "id": 1
+            },
+        "detalles": [
+            {
+                "idProducto": 2,
+                "descripcion":"Mens Casual Premium Slim Fit T-Shirts",
+                "estado": 1,
+                "precio": 22.3,
+                "cantidad": 2
+            },
+            {
+
+                "idProducto": 3,
+                "descripcion":"Mens Cotton Jacket",
+                "estado": 1,
+                "precio": 50.3,
+                "cantidad": 1
+            }
+        ]
+    }
+
+
+--------------------------------------------------------
+API REST Para Mostrar todas las ordenes de pago 
+--------------------------------------------------------
+
+Metodo: GET
+
+EndPoint: http://localhost:8086/api/ordenes/bycliente/1
+
+Response:
+
+[
+    {
+        "id": 1,
+        "fechaOrden": "2024-08-02",
+        "estado": 1,
+        "detalles": [
+            {
+                "id": 1,
+                "idProducto": 3,
+                "descripcion": "Mens Cotton Jacket",
+                "precio": 22.3,
+                "cantidad": 1,
+                "estado": 1
+            },
+            {
+                "id": 2,
+                "idProducto": 2,
+                "descripcion": "Mens Casual Premium Slim Fit T-Shirts",
+                "precio": 50.3,
+                "cantidad": 2,
+                "estado": 1
+            }
+        ]
+    }
+]
+
+
+--------------------------------------------------------
+API REST Para Mostrar las ordenes de pago de un cliente
+--------------------------------------------------------
+
+Metodo: GET
+
+EndPoint: http://localhost:8086/api/ordenes/all
+
+Response:
+
+[
+    {
+        "id": 1,
+        "fechaOrden": "2024-08-02",
+        "estado": 1,
+        "detalles": [
+            {
+                "id": 1,
+                "idProducto": 3,
+                "descripcion": "Mens Cotton Jacket",
+                "precio": 22.3,
+                "cantidad": 1,
+                "estado": 1
+            },
+            {
+                "id": 2,
+                "idProducto": 2,
+                "descripcion": "Mens Casual Premium Slim Fit T-Shirts",
+                "precio": 50.3,
+                "cantidad": 2,
+                "estado": 1
+            }
+        ]
+    }
+]
+
+--------------------------------------------------------
+API REST Para Cancelar una Orden 
+--------------------------------------------------------
+
+Metodo: PUT
+
+EndPoint: http://localhost:8086/api/ordenes/actualizar
+
+REQUEST:
+
+{
+         "id":1,
+        "fechaOrden": "2024-08-03",
+        "estado": 2,
+        "cliente": 
+            {
+                "id": 1
+            }
+    }
+
+--------------------------------------------------------
+API REST Para Crear Un Pago
+--------------------------------------------------------
+
+Metodo: POST
+
+EndPoint: http://localhost:8086/api/pagos/guardar
+
+REQUEST:
+
+{
+
+    "estado": 1,
+    "totalpago": 122.6,
+    "subtotal": 102.6,
+    "fechapago": "2024-08-07",
+    "impuestos": 20.0,
+    "ordenes": {
+        "id": 1
+    }
+}
+
+--------------------------------------------------------
+API REST Para Mostar los Pago de un cliente
+--------------------------------------------------------
+
+Metodo: GET
+
+EndPoint: http://localhost:8086/api/pagos/byorden/1
+
+RESPONSE:
+
+[
+    {
+        "id": 1,
+        "estado": 1,
+        "subtotal": 102.6,
+        "totalpago": 122.6,
+        "impuestos": 20.0,
+        "fechapago": "2024-08-06"
+    }
+]
+
+--------------------------------------------------------
+API REST Para Mostar todos los pagos
+--------------------------------------------------------
+
+Metodo: GET
+
+EndPoint: http://localhost:8086/api/pagos/all
+
+RESPONSE:
+
+[
+    {
+        "id": 1,
+        "estado": 1,
+        "subtotal": 102.6,
+        "totalpago": 122.6,
+        "impuestos": 20.0,
+        "fechapago": "2024-08-06"
+    }
+]
+
+-----------------------------------------------
+API REST para mostrar los productos por medio de API externa
+-----------------------------------------------
+Metodo: GET
+
+EndPoint: http://localhost:8086/api/products/all
+
+Response:
+
+[
+    {
+        "id": "1",
+        "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+        "price": "109.95",
+        "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+        "category": "men's clothing",
+        "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+    }
+]
